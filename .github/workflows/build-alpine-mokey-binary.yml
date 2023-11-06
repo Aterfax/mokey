@@ -1,0 +1,34 @@
+name: Build Mokey for Alpine.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  Build-Test-Mokey-Alpine:
+    name: Build Mokey for Alpine.
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+
+        - name: Setup latest Alpine Linux
+          uses: jirutka/setup-alpine@v1
+          with:
+            packages: >
+              build-base
+              ca-certificates
+              git
+              go 
+              make 
+              musl-dev 
+
+        - name: Build Mokey
+          run: go generate && env GOOS=linux GOARCH=amd64 go build -o ./mokey main.go && chmod +x mokey
+          shell: alpine.sh {0}
+
+        - name: Archive the generated binary
+          uses: actions/upload-artifact@v3
+          with:
+            name: Mokey-binary
+            path: ./mokey
