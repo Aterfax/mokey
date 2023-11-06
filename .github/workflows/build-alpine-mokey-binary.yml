@@ -7,7 +7,7 @@ on:
 jobs:
   Build-Test-Mokey-Alpine:
     name: Build Mokey for Alpine.
-    runs-on: golang:alpine
+    runs-on: ubuntu-latest
     steps:
         - name: Checkout repo
           uses: actions/checkout@v4
