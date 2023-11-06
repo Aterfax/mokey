@@ -12,11 +12,20 @@ jobs:
         - name: Checkout repo
           uses: actions/checkout@v4
 
-        - name: Add Prereqs
-          run: apk --no-cache add build-base git gcc ca-certificates
+        - name: Setup latest Alpine Linux
+          uses: jirutka/setup-alpine@v1
+          with:
+            packages: >
+              build-base
+              ca-certificates
+              git
+              go 
+              make 
+              musl-dev 
 
         - name: Build Mokey
           run: go generate && env GOOS=linux GOARCH=amd64 go build -o ./mokey main.go && chmod +x mokey
+          shell: alpine.sh {0}
 
         - name: Archive the generated binary
           uses: actions/upload-artifact@v3
