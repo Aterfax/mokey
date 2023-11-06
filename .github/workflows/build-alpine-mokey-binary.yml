@@ -1,4 +1,4 @@
-name: Build test Mokey Docker image
+name: Build Mokey for Alpine.
 
 on:
   pull_request:
