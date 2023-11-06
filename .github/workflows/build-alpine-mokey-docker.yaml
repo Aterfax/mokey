@@ -25,7 +25,7 @@ jobs:
           with:
             context: .
             push: false
-            dockerfile: ./Dockerfiles/Alpine/Dockerfile
+            file: ./Dockerfiles/Alpine/Dockerfile
 
         - name: Image digest
           run: echo ${{ steps.docker_build.outputs.digest }}
